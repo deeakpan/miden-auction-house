@@ -3,6 +3,7 @@ import Image from "next/image";
 import { FaPlusCircle, FaClock, FaWallet, FaHourglassEnd, FaUserCircle } from "react-icons/fa";
 import { useState } from "react";
 import React from "react";
+import Link from "next/link";
 
 const mockAuctions = [
   {
@@ -43,7 +44,7 @@ const mockAuctions = [
 const navLinks = [
   { name: 'Start Auction', icon: <FaPlusCircle />, href: '#' },
   { name: 'Pending Auctions', icon: <FaHourglassEnd />, href: '#' },
-  { name: 'Wallet', icon: <FaWallet />, href: '#' },
+  { name: 'Wallet', icon: <FaWallet />, href: '/wallet' },
 ];
 
 function timeLeft(endDate: string) {
@@ -72,14 +73,25 @@ export default function Home() {
         <nav className="flex flex-col gap-5 mt-0">
           {navLinks.map((link, idx) => (
             <React.Fragment key={link.name}>
-              <a
-                href={link.href}
-                onClick={() => setActiveNav(link.name)}
-                className={`flex items-center gap-2 px-3 py-2 rounded font-medium text-base transition-colors ${activeNav === link.name ? 'bg-orange-500/10 text-orange-400 border-l-4 border-orange-400' : 'text-neutral-200 hover:bg-neutral-800 hover:text-orange-300'}`}
-              >
-                <span className={activeNav === link.name ? 'text-orange-400' : 'text-orange-300'}>{link.icon}</span>
-                {link.name}
-              </a>
+              {link.name === 'Wallet' ? (
+                <Link
+                  href={link.href}
+                  className={`flex items-center gap-2 px-3 py-2 rounded font-medium text-base transition-colors ${activeNav === link.name ? 'bg-orange-500/10 text-orange-400 border-l-4 border-orange-400' : 'text-neutral-200 hover:bg-neutral-800 hover:text-orange-300'}`}
+                  onClick={() => setActiveNav(link.name)}
+                >
+                  <span className={activeNav === link.name ? 'text-orange-400' : 'text-orange-300'}>{link.icon}</span>
+                  {link.name}
+                </Link>
+              ) : (
+                <a
+                  href={link.href}
+                  onClick={() => setActiveNav(link.name)}
+                  className={`flex items-center gap-2 px-3 py-2 rounded font-medium text-base transition-colors ${activeNav === link.name ? 'bg-orange-500/10 text-orange-400 border-l-4 border-orange-400' : 'text-neutral-200 hover:bg-neutral-800 hover:text-orange-300'}`}
+                >
+                  <span className={activeNav === link.name ? 'text-orange-400' : 'text-orange-300'}>{link.icon}</span>
+                  {link.name}
+                </a>
+              )}
               {idx < navLinks.length - 1 && <hr className="border-t border-neutral-700 mx-2" />}
             </React.Fragment>
           ))}

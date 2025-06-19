@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "../../node_modules/@demox-labs/miden-wallet-adapter-reactui/styles.css";
 
 :root {
   --background: #ffffff;
